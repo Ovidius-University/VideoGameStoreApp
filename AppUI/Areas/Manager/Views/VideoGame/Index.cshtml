@@ -1,0 +1,85 @@
+﻿@model IndexVideoGamesVm
+
+@{
+    ViewData["Title"] = "Index";
+    var existVideoGamesOrOffers = false;
+}
+
+<h1>List of Video Games for the Publisher <strong>@Html.DisplayFor(m=>Model.Publisher)</strong></h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-sm btn-outline-success">Add a Video Game</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Genre
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Release
+            </th>
+            <th>
+                Stock
+            </th>
+            <th>
+                Final?
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ListVideoGames!)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReleaseYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsFinal)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    @if (item.IsFinal)
+                    {
+                        existVideoGamesOrOffers = true;
+                        <text> | </text>
+                        <a asp-action="Offer" asp-route-id="@item.Id">Offer</a>
+                        <text> | </text>
+                        <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalOffer" data-bs-id="@item.Id">Modal Offer</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@await Html.PartialAsync("_MessageResponse", "MessageVideoGame")
+@if(existVideoGamesOrOffers){
+    await Html.RenderPartialAsync("Offer/_AddEdit", new AddEditVideoGameOfferDto() { PromoText="" });
+}

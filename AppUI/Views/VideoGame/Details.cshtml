@@ -1,0 +1,43 @@
+﻿@model VideoGameDetailsVm
+<section class="row">
+    <article class="me-2">
+        <h4>@Html.DisplayFor(m => Model.Title)</h4>
+    </article>
+    <article class="me-2">
+        <dl>
+            <dt>Developers:</dt>
+            <dd>
+                <ul>
+                    @foreach (var item in Model.ListDevelopers!)
+                    {
+                        <li><a asp-controller="Developer" asp-action="Details" asp-route-id="@item.DeveloperId">@Html.DisplayFor(m => item.FirstName) @Html.DisplayFor(m => item.LastName)</a></li>
+                    }
+                </ul>
+            </dd>
+            <dt>Description:</dt>
+            <dd>@Html.DisplayFor(m => Model.Description)</dd>
+            <dt>Genre:</dt>
+            <dd>
+                <ul>
+                    <li><a asp-controller="Genre" asp-action="Details" asp-route-id="@Model.GenreId">@Html.DisplayFor(m => Model.Genre)</a></li>
+                </ul>
+            </dd>
+            <dt>Publisher:</dt>
+            <dd>@Html.DisplayFor(m => Model.Publisher)</dd>
+            <dt>Release year:</dt>
+            <dd>@Html.DisplayFor(m => Model.ReleaseYear)</dd>
+            <dt>Stock:</dt>
+            <dd>@Html.DisplayFor(m => Model.Stock)</dd>
+            <dt>Price</dt>
+            <dd>@if(Model.NewPrice==0)
+                {
+                    <div>@Html.DisplayFor(m => Model.Price) RON</div>
+                }
+                else
+                {
+                    <div><del>@Html.DisplayFor(m => Model.Price)</del> @Html.DisplayFor(m => Model.NewPrice) RON</div>
+                }
+            </dd>
+        </dl>
+</section>
+</section>

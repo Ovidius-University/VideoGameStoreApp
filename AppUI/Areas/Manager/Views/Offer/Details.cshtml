@@ -1,0 +1,42 @@
+﻿@model VideoGameOfferDto
+
+@{
+    ViewData["Title"] = "Offer";
+}
+
+<h1></h1>
+
+<div>
+    <h4>@ViewBag.Title</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Developers)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Developers)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PromoText)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PromoText)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NewPrice)
+        </dt>
+        <dd class = "col-sm-10">
+            <del>@Html.DisplayFor(model => model.Price)</del> @Html.DisplayFor(model => model.NewPrice)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-controller="VideoGame" asp-action="Offer" asp-route-id="@Model?.Id">Modify</a> |
+    <partial name="_BackToList" />
+</div>

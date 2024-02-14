@@ -1,0 +1,60 @@
+﻿@model IndexShopCartsVm
+
+@{
+    ViewData["Title"] = "Index";
+    decimal cost = 0;
+}
+
+<h1>List of Video Games currently in your shopping cart:</h1>
+<p>
+    <a asp-action="Create">Add a video game to your shopping cart</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Unit Price
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Total price
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ListShopCarts!)
+        {
+         cost += item.TotalPrice;
+         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VideoGame!.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice) RON
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice) RON
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.VideoGameId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.VideoGameId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.VideoGameId">Remove</a>
+            </td>
+        </tr>
+        }
+        <h1>Total cost of shopping cart is: @cost RON</h1>
+        <p>
+            <a asp-action="Order" asp-route-id="@Model.CustomerId" class="btn btn-sm btn-outline-success">Send your order</a>
+        </p>
+    </tbody>
+</table>
+@await Html.PartialAsync("_MessageResponse", "MessageShopCart")

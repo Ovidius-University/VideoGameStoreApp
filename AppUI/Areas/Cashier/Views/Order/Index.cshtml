@@ -1,0 +1,164 @@
+﻿@model IndexOrdersVm
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>List of all of the pick-ups during your workhours</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Order Number
+            </th>
+            <th>
+                Customer Name
+            </th>
+            <th>
+                Cost (without tip)
+            </th>
+            @*
+            <th>
+                Is it a Delivery?
+            </th>
+            <th>
+                Delivery Worker Name
+            </th>
+            <th>
+                Address
+            </th>
+            *@
+            <th>
+                Tip
+            </th>
+            <th>
+                Paying Method
+            </th>
+            <th>
+                Order Time
+            </th>
+            <th>
+                Chosen Arrival Time
+            </th>
+            <th>
+                Is it finished?
+            </th>
+            <th>
+                Delivery Time
+            </th>
+            <th>
+                Feedback
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.ListOrders != null)
+        {
+            @foreach (var item in Model.ListOrders!)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cost) RON
+                    </td>
+                    @*
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsDelivery)
+                    </td>
+                    @if (item.DeliveryName != string.Empty && item.DeliveryName != null)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DeliveryName)
+                        </td>
+                    }
+                    else if (item.IsDelivery == false)
+                    {
+                        <td>
+                            Not a delivery
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            A delivery worker hasn't accepted this order yet
+                        </td>
+                    }
+                    @if (item.Address != string.Empty && item.Address != null)
+                    {<td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    }
+                    else if(item.IsDelivery == false)
+                    {<td>
+                        Not a delivery
+                    </td>
+                    }
+                    *@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tip) RON
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PayingMethod)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArrivalTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsFinal)
+                    </td>
+                    @if (item.IsFinal == true)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DeliveryTime)
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            Order hasn't been picked up yet
+                        </td>
+                    }
+                    @if (item.IsFinal == false)
+                    {
+                        <td>
+                            Order isn't finished, so feedback couldn't be sent
+                        </td>
+                    }
+                    else if (item.Comment != null && item.Comment != string.Empty)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comment)
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            The customer hasn't sent any feedback
+                        </td>
+                    }
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Confirm/Unconfirm pick-up</a> |
+                        <a asp-controller="OrderContent" asp-action="Index" asp-route-oid="@item.Id">Order's items</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        @if (item.Comment != null && item.Comment != string.Empty)
+                        {
+                            <div> | <a asp-action="FeedBack" asp-route-id="@item.Id">Feedback</a></div>
+                        }
+                        @* |<a asp-action="Delete" asp-route-id="@item.Id">Remove</a>*@
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+@await Html.PartialAsync("_MessageResponse", "MessagePickedOrder")

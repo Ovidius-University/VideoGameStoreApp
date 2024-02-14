@@ -1,0 +1,19 @@
+﻿@model GenreVideoGamesVm
+<section class="row">
+    <article class="me-2">
+        <h4>@Html.DisplayFor(m => Model.GenreDetails!.Name) </h4>
+    </article>
+    @if (Model.VideoGames!.Count() > 0)
+    {
+        @foreach (var item in Model.VideoGames!)
+        {
+            <article class="me-2 col-lg-4">
+                @await Html.PartialAsync("VideoGame/_Card", item)
+            </article>
+        }
+    }
+    else
+    {
+        <article class="alert alert-warning" role="alert">There is no video game available for this genre yet!</article>
+    }
+</section>

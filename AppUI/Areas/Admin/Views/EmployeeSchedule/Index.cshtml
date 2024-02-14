@@ -1,0 +1,54 @@
+﻿@model IndexEmployeeSchedulesVm
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index of Employee Day Schedules</h1>
+
+<p>
+    <a asp-action="Create">Add an employee day schedule</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Employee
+            </th>
+            <th>
+                Day
+            </th>
+            <th>
+                Start Hour
+            </th>
+            <th>
+                End Hour
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.ListEmployeeSchedules!) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Day)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartHour)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndHour)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-eid="@item.EmployeeId" asp-route-did="@item.DayId">Edit</a> |
+                <a asp-action="Details" asp-route-eid="@item.EmployeeId" asp-route-did="@item.DayId">Details</a> |
+                <a asp-action="Delete" asp-route-eid="@item.EmployeeId" asp-route-did="@item.DayId">Remove</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+@await Html.PartialAsync("_MessageResponse", "MessageEmployeeSchedule")

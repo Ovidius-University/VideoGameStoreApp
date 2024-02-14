@@ -1,0 +1,1 @@
+docker run --name wadproj2023 -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=wadproj2023" -e "MSSQL_PID=Express" -dp 2433:1433 mcr.microsoft.com/mssql/server:2017-latest

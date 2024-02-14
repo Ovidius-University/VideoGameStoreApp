@@ -1,0 +1,11 @@
+﻿﻿﻿﻿@using AppUI.Models.ViewModels
+@model CardDeveloperVm
+<div class="card">
+    <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(m => Model.FirstName)</h6>
+        <h5 class="card-title">@Html.DisplayFor(m => Model.LastName)</h5>
+        <p class="card-text">@Html.DisplayFor(m => Model.Birthday)</p>
+        @*<a asp-action="Details" asp-route-id="@Model.DeveloperId" class="card-link">Video Games</a>*@
+        @Html.ActionLink("Video Games", "Details", new { id = Model.DeveloperId }, new { @class = "card-link" })
+    </div>
+</div>

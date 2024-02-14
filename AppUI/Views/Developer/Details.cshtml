@@ -1,0 +1,21 @@
+﻿@model DeveloperVideoGamesVm
+<section class="row">
+    <article class="me-2">
+        <h4>@Html.DisplayFor(m => Model.DeveloperDetails!.FirstName) @Html.DisplayFor(m => Model.DeveloperDetails!.LastName) </h4>
+        <hr/>
+        <h5>@Html.DisplayFor(m => Model.DeveloperDetails!.Birthday)</h5>
+    </article>
+    @if (Model.VideoGames!.Count() > 0)
+    {
+        @foreach (var item in Model.VideoGames!)
+        {
+            <article class="me-2 col-lg-4">
+                @await Html.PartialAsync("VideoGame/_Card", item)
+            </article>
+        }
+    }
+    else
+    {
+        <article class="alert alert-warning" role="alert">There is no video game made by this developer yet!</article>
+    }
+</section>

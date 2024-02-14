@@ -1,0 +1,24 @@
+﻿﻿﻿@using AppUI.Models.ViewModels
+@model CardVideoGameVm
+<div class="card h-100">
+    <div class="card-body">
+        <h1 class="card-text">@Html.DisplayFor(m => Model.Title)</h1>
+        @if (Model.PromoText != string.Empty)
+        {
+            <h2 class="card-title">@Html.DisplayFor(m => Model.PromoText)</h2>
+        }
+        <h3 class="card-subtitle mb-2 text-body-secondary">
+            @Html.DisplayFor(m => Model.Developers)</h3>
+            <h4 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(m => Model.Publisher)</h4>
+            <h5 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(m => Model.Genre)</h5>
+            @if (Model.NewPrice == 0)
+            {
+            <h6 class="card-title">@Html.DisplayFor(m => Model.Price) RON</h6>
+            }
+            else
+            {
+            <h6 class="card-title"><del>@Html.DisplayFor(m => Model.Price)</del> @Html.DisplayFor(m => Model.NewPrice) RON</h6>
+            }
+            <a asp-controller="VideoGame" asp-action="Details" asp-route-id="@Model.Id" class="card-link">Details</a>
+    </div>
+</div>
